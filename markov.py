@@ -1,5 +1,5 @@
 """Generate Markov text from text files."""
-
+import random
 from random import choice
 
 
@@ -58,8 +58,8 @@ def make_chains(text_string):
             #make new list
             following_words = [words[i+2]]
             #make the value of words at i+2, append into list
-        
-        chains[key_pair] = following_words
+            chains[key_pair] = following_words
+
 
         i += 1
     
@@ -73,8 +73,36 @@ def make_text(chains):
     """Return text from chains."""
 
     words = []
+    #pick a key (word1, word2)
+    keys = chains.keys()
+    keys_list = list(keys)
+    word_pair = random.choice(keys_list)
+    words.append(word_pair[0])
+    
+    while True:
+        # if word_pair == ('Sam', 'I'):
+        #     words.append(chains(('Sam', 'I')))
 
-    # your code goes here
+       
+
+            #add it to words
+            # print(f'First print{word_pair}')
+            # print(type(word_pair))
+            
+        words.append(word_pair[1])
+        
+        if word_pair in chains:
+            #pick a random word from the list assocaited with key (word3)    
+            next_word = random.choice(chains[word_pair])
+            word_pair = (word_pair[1], next_word)
+            # print(f'second print{word_pair}')
+            # print(type(word_pair))
+        else:
+            break
+
+    #last word of first key and the word we just picked and make the next tuple (word2, word3)
+
+    # repeat add it to words through make a new tuple
 
     return ' '.join(words)
 
@@ -93,5 +121,5 @@ random_text = make_text(chains)
 print(random_text)
 
 
-result =  make_chains(input_text)
-print(result)
+# result =  make_chains(input_text)
+# print(result)
